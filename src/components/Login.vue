@@ -59,16 +59,14 @@
                 this.isLogin=true
             },
             onRegister(){
-                let result1 =this.validUsername(this.register.username)
-                if(!result1.check){
+                if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)){
                     this.register.isError=true
-                    this.register.notice=result1.notice
+                    this.register.notice='用户名3-15个字符，仅限于字母数字下划线中文'
                     return
                 }
-                let result2=this.validPassword(this.register.password)
-                if(!result2.check){
+                if(!/^.{6,16}$/.test(this.register.password)){
                     this.register.isError=true,
-                    this.register.notice=result2.notice
+                    this.register.notice='密码是6-16个字符'
                     return
                 }
                 this.register.isError=false
@@ -78,35 +76,20 @@
 
             },
             onLogin(){
-                let result1 =this.validUsername(this.login.username)
-                if(!result1.check){
+                if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)){
                     this.login.isError=true
-                    this.login.notice=result1.notice
+                    this.login.notice='用户名3-15个字符，仅限于字母数字下划线中文'
                     return
                 }
-                let result2=this.validPassword(this.login.password)
-                if(!result2.check){
+                if(!/^.{6,16}$/.test(this.login.password)){
                     this.login.isError=true,
-                    this.login.notice=result2.notice
+                    this.login.notice='密码是6-16个字符'
                     return
                 }
-                this.register.isError=false
-                this.register.notice=''
+                this.login.isError=false
+                this.login.notice=''
                 console.log('login send')
 
-            },
-            validUsername(username){
-                return{
-                    check:/^[\w\u4e00-\u9fa5]{3,15}$/.test(username),
-                    notice:'用户名3-15个字符，仅限于字母数字下划线中文'
-                }
-                
-            },
-            validPassword(password){
-                return{
-                    check:/^.{6,16}$/.test(password),
-                    notice:'密码是6-16个字符'
-                }
             },
         }
         
