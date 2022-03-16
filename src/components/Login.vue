@@ -32,6 +32,11 @@
 
 <script>
 import request from '@/helpers/request'
+import Auth from '@/apis/auth'
+Auth.getInfo()
+  .then(data=>{
+      console.log(data)
+  })
 
 
     export default {
@@ -78,8 +83,15 @@ import request from '@/helpers/request'
                 }
                 this.register.isError=false
                 this.register.notice=''
-
                 console.log('register send')
+                console.log(this.register.username)
+
+                Auth.register({
+                    username:this.register.username,
+                    password:this.register.password
+                }).then(data=>console.log(data))
+                 
+                
 
             },
             onLogin(){
@@ -95,7 +107,11 @@ import request from '@/helpers/request'
                 }
                 this.login.isError=false
                 this.login.notice=''
-                console.log('login send')
+                console.log(`username:$(this.login.username)`)
+                Auth.login({
+                    username:this.login.username,
+                    password:this.login.password
+                }).then(data=>{console.log(data)})
 
             },
         }
