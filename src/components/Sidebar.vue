@@ -29,7 +29,13 @@ import Auth from '@/apis/auth'
             logout(){
                 console.log('logout')
                 Auth.logout()
-                  .then(data=>{console.log(data)})
+                  .then(data=>{
+                      console.log(data)
+                     
+                  })
+                  .catch(
+                       this.$router.push({path:'/login'})
+                  )
             }
         }
         

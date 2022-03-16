@@ -89,7 +89,16 @@ Auth.getInfo()
                 Auth.register({
                     username:this.register.username,
                     password:this.register.password
-                }).then(data=>console.log(data))
+                }).then(data=>{
+                    console.log(data),
+                    this.register.isError=false,
+                    this.register.notice=''
+                    })
+                .catch(
+                    //this.register.isError=true
+                    //this.register.notice=data.msg
+                    this.$router.push({path:'/notebookLists'})
+                )
                  
                 
 
@@ -111,7 +120,16 @@ Auth.getInfo()
                 Auth.login({
                     username:this.login.username,
                     password:this.login.password
-                }).then(data=>{console.log(data)})
+                }).then(data=>{
+                    console.log(data)
+                    this.login.isError=false,
+                    this.login.notice=''
+                    })
+                .catch(
+                    //this.login.isError=true
+                    //this.login.notice=data.msg
+                    this.$router.push({path:'/notebookLists'})
+                )
 
             },
         }
