@@ -1,8 +1,9 @@
 import axios from 'axios'
+import baseURLconfig from './config-baseURL.js'
 
 axios.defaults.headers.post['Content-type']='application/x-www-form-urlencoded'
 //设置post请求统一设置content-type
-axios.defaults.baseURL='https://note-server.hunger-valley.com/'
+axios.defaults.baseURL=baseURLconfig.baseURL
 axios.defaults.withCredentials=true
 
 export default function request(url, type='GET',data={}){
