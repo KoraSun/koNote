@@ -97,7 +97,7 @@ Auth.getInfo()
                 .catch(
                     //this.register.isError=true
                     //this.register.notice=data.msg
-                    this.$router.push({path:'/notebookLists'})
+                    //this.$router.push({path:'/notebookLists'})
                 )
                  
                 
@@ -128,7 +128,7 @@ Auth.getInfo()
                 .catch(
                     //this.login.isError=true
                     //this.login.notice=data.msg
-                    this.$router.push({path:'/notebookLists'})
+                    //this.$router.push({path:'/notebookLists'})
                 )
 
             },
