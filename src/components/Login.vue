@@ -6,19 +6,23 @@
                     <div class="main"></div>
                     <div class="from">
                         <h3 @click="showRegister">创建用户</h3>
-                        <div v-show="isRegister" class="register">
-                            <input type="text" v-model="register.username" placeholder="用户名">
-                            <input type="password"  v-model="register.password" placeholder="密码">
-                            <p v-bind:class="{error:register.isError}">{{register.notice}}</p>
-                            <div class="button-in" @click="onRegister">创建账号</div>
-                        </div>
+                        <transition name="slide">
+                            <div v-bind:class="{show:isShowRegister}" class="register">
+                                <input type="text" v-model="register.username" placeholder="用户名">
+                                <input type="password"  v-model="register.password" placeholder="密码">
+                                <p v-bind:class="{error:register.isError}">{{register.notice}}</p>
+                                <div class="button-in" @click="onRegister">创建账号</div>
+                            </div>
+                        </transition>
                         <h3 @click="showLogin">用户登陆</h3>
-                        <div v-show="isLogin"  class="login">
-                        <input type="text" v-model="login.username" placeholder="用户名">
-                            <input type="password" v-model="login.password" placeholder="密码">
-                            <p v-bind:class="{error:login.isError}">{{login.notice}}</p>
-                            <div class="button-in" @click="onLogin">登陆</div>
-                        </div>
+                        <transition name="slide">
+                            <div v-bind:class="{show:isShowLogin}"  class="login">
+                                <input type="text" v-model="login.username" placeholder="用户名">
+                                <input type="password" v-model="login.password" placeholder="密码">
+                                <p v-bind:class="{error:login.isError}">{{login.notice}}</p>
+                                <div class="button-in" @click="onLogin">登陆</div>
+                            </div>
+                        </transition>
                     </div>
                 </div>
             </div>
@@ -27,12 +31,15 @@
 </template>
 
 <script>
+import request from '@/helpers/request'
+
+
     export default {
         name:"Login",
         data(){
             return{
-               isRegister:false,
-               isLogin:true,
+               isShowRegister:false,
+               isShowLogin:true,
                register:{
                    username:'',
                    password:'',
@@ -51,12 +58,12 @@
         },
         methods:{
             showRegister(){
-                this.isRegister=true,
-                this.isLogin=false
+                this.isShowRegister=true,
+                this.isShowLogin=false
             },
              showLogin(){
-                this.isRegister=false,
-                this.isLogin=true
+                this.isShowRegister=false,
+                this.isShowLogin=true
             },
             onRegister(){
                 if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)){
@@ -133,8 +140,10 @@
 .from{
     width: 270px;
     border-left: 1px solid #ccc;
+    overflow: hidden;
     h3{
         color: #444;
+        margin-top: -1px;
         padding: 10px 20px;
         font-weight: normal;
         font-size: 16px;
@@ -157,8 +166,14 @@
         cursor: pointer;
     }
     .login,.register{
-        padding:10px 20px;
+        padding:0px 20px;
         border-top: 1px solid #eee;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.4s;
+        &.show{
+            height: 193px;
+        }
 
         input{
             display: block;
