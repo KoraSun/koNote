@@ -8,10 +8,10 @@ const URL ={
 }
 
 export default{
-    register(username,password){
+    register({username, password}){
         return request(URL.REGISTER,'POST',{username,password})
     },
-    login(username,password){
+    login({username,password}){
         return request(URL.LOGIN,'POST',{username,password})
     },
     logout(){

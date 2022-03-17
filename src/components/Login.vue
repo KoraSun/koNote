@@ -62,14 +62,14 @@ Auth.getInfo()
 
         },
         methods:{
-            showRegister(){
-                this.isShowRegister=true,
-                this.isShowLogin=false
-            },
-             showLogin(){
+            showLogin(){
                 this.isShowRegister=false,
                 this.isShowLogin=true
             },
+            showRegister(){
+                this.isShowRegister=true,
+                this.isShowLogin=false
+            }, 
             onRegister(){
                 if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)){
                     this.register.isError=true
@@ -84,24 +84,22 @@ Auth.getInfo()
                 this.register.isError=false
                 this.register.notice=''
                 console.log('register send')
-                console.log(this.register.username)
-
+                console.log(`start register..., username: ${this.register.username} , password: ${this.register.password}`)
+                console.log(`222`, this.register)
                 Auth.register({
                     username:this.register.username,
-                    password:this.register.password
+                    password:this.register.password,
                 }).then(data=>{
                     console.log(data),
                     this.register.isError=false,
                     this.register.notice=''
                     })
                 .catch(
+                    console.log('失败辽')
                     //this.register.isError=true
                     //this.register.notice=data.msg
                     //this.$router.push({path:'/notebookLists'})
                 )
-                 
-                
-
             },
             onLogin(){
                 if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)){
@@ -116,7 +114,8 @@ Auth.getInfo()
                 }
                 this.login.isError=false
                 this.login.notice=''
-                console.log(`username:$(this.login.username)`)
+                console.log('login send')
+                console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)
                 Auth.login({
                     username:this.login.username,
                     password:this.login.password
@@ -126,6 +125,7 @@ Auth.getInfo()
                     this.login.notice=''
                     })
                 .catch(
+                    console.log('login失败辽')
                     //this.login.isError=true
                     //this.login.notice=data.msg
                     //this.$router.push({path:'/notebookLists'})
