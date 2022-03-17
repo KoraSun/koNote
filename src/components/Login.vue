@@ -93,12 +93,12 @@ Auth.getInfo()
                     console.log(data),
                     this.register.isError=false,
                     this.register.notice=''
+                    this.$router.push({path:'/notebookLists'})
                     })
                 .catch(
-                    console.log('失败辽')
-                    //this.register.isError=true
-                    //this.register.notice=data.msg
-                    //this.$router.push({path:'/notebookLists'})
+                    this.register.isError=true,
+                    this.register.notice=data.msg,
+                   
                 )
             },
             onLogin(){
@@ -123,12 +123,12 @@ Auth.getInfo()
                     console.log(data)
                     this.login.isError=false,
                     this.login.notice=''
+                    this.$router.push({path:'/notebookLists'})
                     })
                 .catch(
-                    console.log('login失败辽')
-                    //this.login.isError=true
-                    //this.login.notice=data.msg
-                    //this.$router.push({path:'/notebookLists'})
+                    this.login.isError=true,
+                    this.login.notice=data.msg,
+                   
                 )
 
             },

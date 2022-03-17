@@ -1,7 +1,7 @@
 import axios from 'axios'
 import baseURLconfig from './config-baseURL.js'
 
-axios.defaults.headers.post['Content-type']='application/x-www-form-urlencoded'
+axios.defaults.headers['Content-type']='application/json;charset=UTF-8'
 //设置post请求统一设置content-type
 axios.defaults.baseURL=baseURLconfig.baseURL
 axios.defaults.withCredentials=true
