@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import request from '@/helpers/request'
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/bus'
 Auth.getInfo()
   .then(data=>{
       console.log(data)
@@ -85,7 +85,8 @@ Auth.getInfo()
                 this.register.notice=''
                 console.log('register send')
                 console.log(`start register..., username: ${this.register.username} , password: ${this.register.password}`)
-                console.log(`222`, this.register)
+                Bus.$emit('userInfo',this.register.username)
+   
                 Auth.register({
                     username:this.register.username,
                     password:this.register.password,
@@ -116,6 +117,7 @@ Auth.getInfo()
                 this.login.notice=''
                 console.log('login send')
                 console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)
+                Bus.$emit('userInfo',this.login.username)
                 Auth.login({
                     username:this.login.username,
                     password:this.login.password

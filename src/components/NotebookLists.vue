@@ -16,12 +16,20 @@
 </template>
 
 <script>
+import Auth from '@/apis/auth'
     export default {
-        
         data(){
             return {message:'笔记本列表'}
 
-        }
+        },
+        created(){
+           Auth.getInfo()
+            .then(res=>{
+                if(!res.isLogin){
+                    this.$router.push('/login')
+                }
+            })
+        },
         
     }
 </script>

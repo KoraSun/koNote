@@ -7,11 +7,19 @@
 </template>
 
 <script>
+   import Auth from '@/apis/auth'
     export default {
         data(){
-            return{
-                message:'回收页笔记详情'
-            }
+            return {message:'回收站详情'}
+
+        },
+        created(){
+           Auth.getInfo()
+            .then(res=>{
+                if(!res.isLogin){
+                    this.$router.push('/login')
+                }
+            })
         }
         
     }

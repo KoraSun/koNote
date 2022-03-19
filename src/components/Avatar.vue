@@ -4,17 +4,23 @@
 
 <script>
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/bus'
     export default {
         data(){
             return{
-                username:'kora',
-                slug:'K'
+                username:'未登录',
+               
             }
         },
         created(){
-            Auth.getInfo().then(data=>{
-                console.log(data)     
-            }).catch(
+            Bus.$on('userInfo',username=>{this.username=username})
+            Auth.getInfo().then(
+                res=>{
+                if(res.isLogin){
+                    this.username=res.data.username
+                }
+                }
+            ).catch(
                
             )
         },

@@ -30,11 +30,11 @@ import Auth from '@/apis/auth'
                 console.log('logout')
                 Auth.logout()
                   .then(data=>{
-                      console.log(data)
+                    console.log(data)
+                    this.$router.push({path:'/login'})
                      
                   })
-                  .catch(
-                       this.$router.push({path:'/login'})
+                  .catch(   
                   )
             }
         }
