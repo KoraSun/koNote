@@ -14,7 +14,7 @@
                             <span>{{notebook.noteCounts}}</span>
                             <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
                             <span class="action" @click.stop.prevent="onDelete(notebook)">删除</span>
-                            <span class="date">{{notebook.createdAt}}</span>
+                            <span class="date">{{notebook.friendlyCreatedAt}}</span>
                         </div>
                     </router-link>
                 </div>
@@ -26,6 +26,8 @@
 <script>
 import Auth from '@/apis/auth'
 import Notebooks from '@/apis/notebooks'
+import {friendlyDate} from '@/helpers/until'
+
 
 //window.Notebooks= Notebooks
     export default {
@@ -56,7 +58,8 @@ import Notebooks from '@/apis/notebooks'
                 console.log('create..')
                 Notebooks.addNotebook({title}).then(
                     res=>{
-                        this.notebooks.unshift(res.data)
+                        res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
+                        this.notebooks.unshift(res.data)  
                     }
                 )   
             },
