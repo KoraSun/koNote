@@ -1,6 +1,6 @@
 import axios from 'axios'
 import baseURLconfig from './config-baseURL.js'
-
+import {Message} from 'element-ui'
 axios.defaults.headers['Content-type']='application/json;charset=UTF-8'
 //设置post请求统一设置content-type
 axios.defaults.baseURL=baseURLconfig.baseURL
@@ -24,10 +24,17 @@ export default function request(url, type='GET',data={}){
             if(res.status===200){
                 resolve(res.data)
             }else{
+                Message({
+                    type:'error',
+                    massage:res.data.msg
+                })
                 reject(res.data)
             }
         }).catch(err=>{
-            console.error({msg:'网络异常'})
+            Message({
+                type:'error',
+                massage:'网络异常'
+            })
             reject({msg:'网络异常'})
         })
 

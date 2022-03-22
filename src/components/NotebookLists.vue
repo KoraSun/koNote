@@ -65,12 +65,7 @@ import {friendlyDate} from '@/helpers/until'
                                 type: 'success',
                                 message: res.msg
                             });       
-                      }).catch((res) => {
-                          this.$message({
-                              type:'error',
-                              message:'取消'
-                          })
-                    });
+                      })
             },
             onEdit(notebook){
                 let title=''
@@ -91,12 +86,7 @@ import {friendlyDate} from '@/helpers/until'
                                 type: 'success',
                                 message: res.msg
                             });       
-                      }).catch((res) => {
-                          this.$message({
-                              type:'error',
-                              message:'取消'
-                          })
-                    });
+                      })
             },
             onDelete(notebook){
                  this.$confirm('确定要删除这一条笔记吗?', '删除笔记', {
@@ -110,11 +100,7 @@ import {friendlyDate} from '@/helpers/until'
                          this.$message({
                              type:'success',
                              message:res.msg})
-                    }).catch((res)=>{
-                        this.$message({
-                        type:'error',
-                        message:'取消'}) 
-                   })
+                    })
             },
         }
     }
