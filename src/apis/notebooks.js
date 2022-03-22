@@ -23,7 +23,7 @@ export default {
             })
         })
     },
-    updateNoteBook(notebookId,{title=''}={title:''}){
+    updateNotebook(notebookId,{title=''}={title:''}){
         return request(URL.UPDATE.replace(':id',notebookId),'PATCH',{title})
     },
     deleteNotebook(notebookId){
