@@ -7,7 +7,7 @@
             <div class="layout">
                 <h3>笔记本列表({{notebooks.length}})</h3>
                 <div class="lists">
-                    <router-link v-for="notebook in notebooks" to='/notebooks/1' class="notebook" :key='notebook.id'>
+                    <router-link v-for="notebook in notebooks" :to="`note?notebookId=${notebook.id}`" class="notebook" :key='notebook.id'>
                         <div>
                             <span class='iconfont icon-notebook'></span>
                             {{notebook.title}}
@@ -73,14 +73,12 @@ import {friendlyDate} from '@/helpers/until'
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     inputPattern: /^.{1,30}$/,
-                    inputErrorMessage: '标题不能为空，且不超过30个字符'
+                    inputErrorMessage: '标题不能为空，且不超过30个字符',
+                    inputValue:notebook.title
                     }).then(({value}) => {
                         title=value
-                        console.log('then1')
-                        console.log(notebook)
                        return Notebooks.updateNotebook(notebook.id,{title})
                     }).then(res=>{
-                        console.log('then2'+res)
                         notebook.title=title
                             this.$message({
                                 type: 'success',

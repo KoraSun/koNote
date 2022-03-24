@@ -1,8 +1,8 @@
 <template>
     <div id="trash-detail">
     <h1>
-        {{message}}:{{$route.params.noteId}}
-    </h1>
+         noteId:{{$route.query.noteId}}
+      </h1>
     </div>
 </template>
 
