@@ -5,7 +5,7 @@
         </span>
         <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom" >
             <span class="el-dropdown-link">
-                我的笔记本1<i class="iconfont icon-down" />
+                {{currentNotebook.title}}<i class="iconfont icon-down" />
             </span>   
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="notebook in notebooks" :command="notebook.id" :key="notebook.id">
@@ -23,7 +23,7 @@
         <ul class="notes">
             <li v-for="note in notes" :key="note.id">
                 <router-link :to="`/note?noteId=${note.id}`">
-                <span class="date">{{note.updateAtFriendly}}</span>
+                <span class="date">{{note.updatedAtFriendly}}</span>
                 <span class="title">{{note.title}}</span>
                 </router-link>
             </li>
@@ -33,37 +33,33 @@
 
 <script>
 import friendlyDate from '@/helpers/until'
+import Notebooks from '@/apis/notebooks'
+import Notes from '@/apis/notes'
+
 export default {
+    created(){
+        Notebooks.getAll().then(
+            res=>{
+                console.log(res)
+                this.notebooks=res.data
+            }
+        )
+
+    },
     data(){
         return{
-            notebooks:[
-                {
-                    id:1,
-                    title:"hello1"                
-                },
-                {
-                    id:2,
-                    title:"hello2",
-                    updateAtFriendly:'三分钟前'
-                }
-            ],
-            notes:[
-                {
-                    id:11,
-                    title:'第一个笔记',
-                    updateAtFriendly:'3分钟前'
-                },
-                {
-                    id:12,
-                    title:'第2个笔记',
-                    updateAtFriendly:'5分钟前'
-                }
-            ],
+            notebooks:[],
+            notes:[],
+            currentNotebook:{}
         }
     },
     methods:{
-        handleCommand(command){
-            console.log(command)
+        handleCommand(notebookId){
+            if(notebookId !== 'trash'){
+                Notes.getAll({notebookId}).then(
+                    res=>this.notes=res.data
+                )
+            }
         },
         updateAtFriendly(date){
             console.log(date)
