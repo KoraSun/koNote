@@ -47,6 +47,8 @@ export default {
                return Notes.getAll({notebookId:this.currentNotebook.id})
                .then(res=>{
                    this.notes=res.data
+                   this.$emit('update:notes',this.notes)
+                   console.log("send notes1")
                })
                 
             }
@@ -54,6 +56,7 @@ export default {
 
     },
     data(){
+
         return{
             notebooks:[],
             notes:[],
@@ -69,7 +72,8 @@ export default {
              Notes.getAll({notebookId}).then(
                 res=>{
                     this.notes=res.data
-                    console.log(res)
+                    this.$emit('update:notes',this.notes)
+                    console.log("send notes2")
                 }
             )
         },    
