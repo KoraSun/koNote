@@ -22,7 +22,7 @@
         </div>
         <ul class="notes">
             <li v-for="note in notes" :key="note.id">
-                <router-link :to="`/note?noteId=${note.id}`">
+                <router-link :to="`/note?noteId=${note.id}&notebookId=${currentNotebook.id}`">
                 <span class="date">{{note.updatedAtFriendly}}</span>
                 <span class="title">{{note.title}}</span>
                 </router-link>
@@ -42,6 +42,13 @@ export default {
             res=>{
                 console.log(res)
                 this.notebooks=res.data
+                this.currentNotebook=this.notebooks.find(notebook=>notebook.id.toString()===this.$route.query.notebookId)
+                  ||this.notebooks[0]||{}
+               return Notes.getAll({notebookId:this.currentNotebook.id})
+               .then(res=>{
+                   this.notes=res.data
+               })
+                
             }
         )
 
@@ -55,15 +62,17 @@ export default {
     },
     methods:{
         handleCommand(notebookId){
-            if(notebookId !== 'trash'){
-                Notes.getAll({notebookId}).then(
-                    res=>this.notes=res.data
-                )
+            if(notebookId == 'trash'){
+               return this.$router.push({path:'/trash'})   
             }
-        },
-        updateAtFriendly(date){
-            console.log(date)
-        },
+            this.currentNotebook=this.notebooks.find(notebook=>notebook.id===notebookId)
+             Notes.getAll({notebookId}).then(
+                res=>{
+                    this.notes=res.data
+                    console.log(res)
+                }
+            )
+        },    
     }
 }
 </script>
