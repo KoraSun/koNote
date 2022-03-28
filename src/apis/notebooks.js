@@ -20,6 +20,7 @@ export default {
                 }
             ).catch(error=>{
                 reject(error)
+               
             })
         })
     },

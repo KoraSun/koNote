@@ -45,6 +45,7 @@ import {friendlyDate} from '@/helpers/until'
                 }
             })
             Notebooks.getAll().then(res=>{
+                console.log(res.data)
                 this.notebooks=res.data
             })
         },

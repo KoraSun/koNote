@@ -1,8 +1,9 @@
 import axios from 'axios'
 import baseURLconfig from './config-baseURL.js'
 import {Message} from 'element-ui'
+//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+
 axios.defaults.headers['Content-type']='application/json;charset=UTF-8'
-//设置post请求统一设置content-type
 axios.defaults.baseURL=baseURLconfig.baseURL
 axios.defaults.withCredentials=true
 
@@ -26,14 +27,14 @@ export default function request(url, type='GET',data={}){
             }else{
                 Message({
                     type:'error',
-                    massage:res.data.msg
+                    massage:data.msg
                 })
                 reject(res.data)
             }
         }).catch(err=>{
             Message({
                 type:'error',
-                massage:'网络异常'
+                message:'网络异常'
             })
             reject({msg:'网络异常'})
         })

@@ -1,6 +1,6 @@
 <template>
     <div class="note-sidebar">
-        <span class="button add-note">
+        <span class="button add-note" @click="addNote">
             添加笔记
         </span>
         <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom" >
@@ -35,6 +35,7 @@
 import friendlyDate from '@/helpers/until'
 import Notebooks from '@/apis/notebooks'
 import Notes from '@/apis/notes'
+import Bus from '@/helpers/bus'
 
 export default {
     created(){
@@ -48,7 +49,7 @@ export default {
                .then(res=>{
                    this.notes=res.data
                    this.$emit('update:notes',this.notes)
-                   console.log("send notes1")
+                   Bus.$emit('update:notes',this.notes)
                })
                 
             }
@@ -73,10 +74,17 @@ export default {
                 res=>{
                     this.notes=res.data
                     this.$emit('update:notes',this.notes)
-                    console.log("send notes2")
                 }
             )
-        },    
+        },
+        addNote(){
+            Notes.addNote({notebookId:this.currentNotebook.id})
+            .then(
+                res=>{
+                    this.notes.unshift(res.data)
+                }
+            )
+        }    
     }
 }
 </script>
