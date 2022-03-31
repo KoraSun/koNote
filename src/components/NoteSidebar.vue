@@ -1,6 +1,6 @@
 <template>
     <div class="note-sidebar">
-        <span class="button add-note" @click="addNote">
+        <span class="button add-note" @click="onAddNote">
             添加笔记
         </span>
         <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom" >
@@ -32,16 +32,21 @@
 </template>
 
 <script>
-import friendlyDate from '@/helpers/until'
 import Notebooks from '@/apis/notebooks'
 import Notes from '@/apis/notes'
 import Bus from '@/helpers/bus'
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 
 export default {
     created(){
-        Notebooks.getAll().then(
+        this.getNotebooks().then(
+            ()=>{
+                this.$store.commit('setCurrentNotebook',{currentNotebookId:this.$route.query.notebookId})
+                this.getNotes({notebookId:this.currentNotebook.id})
+            }
+        )
+        /* Notebooks.getAll().then(
             res=>{
-                console.log(res)
                 this.notebooks=res.data
                 this.currentNotebook=this.notebooks.find(notebook=>notebook.id.toString()===this.$route.query.notebookId)
                   ||this.notebooks[0]||{}
@@ -53,37 +58,41 @@ export default {
                })
                 
             }
-        )
+        ) */
 
     },
     data(){
-
-        return{
-            notebooks:[],
-            notes:[],
-            currentNotebook:{}
-        }
+        return{}
+    },
+    computed:{
+        ...mapGetters([
+            'notebooks',
+            'notes',
+            'currentNotebook'
+        ])
     },
     methods:{
+        ...mapActions([
+            'getNotebooks',
+            'getNotes',
+            'addNote'
+
+        ]),
         handleCommand(notebookId){
             if(notebookId == 'trash'){
                return this.$router.push({path:'/trash'})   
             }
-            this.currentNotebook=this.notebooks.find(notebook=>notebook.id===notebookId)
-             Notes.getAll({notebookId}).then(
+            this.$store.commit('setCurrentNotebook',{currentNotebookId:notebookId})
+            this.getNotes({notebookId})
+            /*  Notes.getAll({notebookId}).then(
                 res=>{
                     this.notes=res.data
                     this.$emit('update:notes',this.notes)
                 }
-            )
+            ) */
         },
-        addNote(){
-            Notes.addNote({notebookId:this.currentNotebook.id})
-            .then(
-                res=>{
-                    this.notes.unshift(res.data)
-                }
-            )
+        onAddNote(){
+            this.addNote({notebookId:this.currentNotebook.id})
         }    
     }
 }

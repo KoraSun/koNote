@@ -1,12 +1,23 @@
 import Notebooks from '@/apis/notebooks'
+import {Message} from 'element-ui'
 
 const state={
-    notebooks:[]
+    notebooks:null,
+    currentNotebookId:null,
 
 }
 
 const getters={
-    notebooks:state=>state.notebooks
+    notebooks:state=>state.notebooks|| [],
+
+    currentNotebook:state=>{
+        if(!Array.isArray(state.notebooks))return {}
+        console.log(state.currentNotebookId)
+        if(!state.currentNotebookId) return state.notebooks[0]
+        console.log(state.notebooks)
+        return state.notebooks.find(notebook=> notebook.id == state.currentNotebookId)
+
+    }
 
 }
 
@@ -23,19 +34,22 @@ const mutations ={
     },
     deleteNotebook(state,payload){
         state.notebooks= state.notebooks.filter(notebook=>notebook.id !== payload.notebookId)
+    },
+    setCurrentNotebook(state,payload){
+        state.currentNotebookId=payload.currentNotebookId
     }
 }
 
 const actions={
     getNotebooks({ commit }){
-        Notebooks.getAll().then(
+        return Notebooks.getAll().then(
             res=>{
                 commit('setNotebooks',{notebooks:res.data})
             }
         )
     },
     addNotebook({commit},payload){
-        Notebooks.addNotebook({title:payload.title}).then(
+        return Notebooks.addNotebook({title:payload.title}).then(
             res=>{
                 console.log(res)
                 commit('addNotebook',{notebook:res.data})  
@@ -43,16 +57,17 @@ const actions={
         )
     },
     updateNotebook({commit},payload){
-        Notebooks.updateNotebook(payload.notebookId,{title:payload.title}).then(
+       return  Notebooks.updateNotebook(payload.notebookId,{title:payload.title}).then(
             res=>{
                 commit('updateNotebook',{notebookId:payload.notebookId,title:payload.title})
             }
         )
     },
     deleteNotebook({commit},payload){
-        Notebooks.deleteNotebook(payload.notebookId).then(
+        return Notebooks.deleteNotebook(payload.notebookId).then(
             res=>{
                 commit('deleteNotebook',{notebookId:payload.notebookId})
+                Message.success(res.msg)
             }
         )
     },
