@@ -39,27 +39,13 @@ import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 
 export default {
     created(){
-        this.getNotebooks().then(
-            ()=>{
-                this.$store.commit('setCurrentNotebook',{currentNotebookId:this.$route.query.notebookId})
-                this.getNotes({notebookId:this.currentNotebook.id})
-            }
-        )
-        /* Notebooks.getAll().then(
-            res=>{
-                this.notebooks=res.data
-                this.currentNotebook=this.notebooks.find(notebook=>notebook.id.toString()===this.$route.query.notebookId)
-                  ||this.notebooks[0]||{}
-               return Notes.getAll({notebookId:this.currentNotebook.id})
-               .then(res=>{
-                   this.notes=res.data
-                   this.$emit('update:notes',this.notes)
-                   Bus.$emit('update:notes',this.notes)
-               })
-                
-            }
-        ) */
+        this.getNotebooks().then(()=>{
+            this.setCurrentNotebook({currentNotebookId:this.$route.query.notebookId})
+                return this.getNotes({notebookId:this.currentNotebook.id})
+            }).then(()=>{
+                this.setCurrentNote({currentNoteId:this.$route.query.noteId})
 
+            })
     },
     data(){
         return{}
@@ -72,6 +58,10 @@ export default {
         ])
     },
     methods:{
+        ...mapMutations([
+            'setCurrentNotebook',
+            'setCurrentNote'
+        ]),
         ...mapActions([
             'getNotebooks',
             'getNotes',
@@ -83,13 +73,7 @@ export default {
                return this.$router.push({path:'/trash'})   
             }
             this.$store.commit('setCurrentNotebook',{currentNotebookId:notebookId})
-            this.getNotes({notebookId})
-            /*  Notes.getAll({notebookId}).then(
-                res=>{
-                    this.notes=res.data
-                    this.$emit('update:notes',this.notes)
-                }
-            ) */
+            this.getNotes({ notebookId })
         },
         onAddNote(){
             this.addNote({notebookId:this.currentNotebook.id})

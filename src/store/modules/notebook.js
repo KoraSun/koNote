@@ -12,9 +12,7 @@ const getters={
 
     currentNotebook:state=>{
         if(!Array.isArray(state.notebooks))return {}
-        console.log(state.currentNotebookId)
         if(!state.currentNotebookId) return state.notebooks[0]
-        console.log(state.notebooks)
         return state.notebooks.find(notebook=> notebook.id == state.currentNotebookId)
 
     }
