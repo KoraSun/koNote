@@ -5,16 +5,14 @@
 <script>
 import Auth from '@/apis/auth'
 import Bus from '@/helpers/bus'
+import {mapGetters,mapActions} from 'vuex'
     export default {
         data(){
-            return{
-                username:'未登录',
-               
-            }
+            return{}
         },
         created(){
-            Bus.$on('userInfo',username=>{this.username=username})
-            Auth.getInfo().then(
+            this.checkLogin({path:'/login'})
+           /*  Auth.getInfo().then(
                 res=>{
                 if(res.isLogin){
                     this.username=res.data.username
@@ -22,9 +20,16 @@ import Bus from '@/helpers/bus'
                 }
             ).catch(
                
-            )
+            ) */
         },
         computed:{
+            ...mapGetters([
+                'username',
+                'slug'
+            ]),
+            ...mapActions([
+                'checkLogin'
+            ]),
             slug(){
                 return this.username.charAt(0)
             }

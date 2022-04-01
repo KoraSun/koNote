@@ -33,6 +33,7 @@
 <script>
 import Auth from '@/apis/auth'
 import Bus from '@/helpers/bus'
+import {mapGetters,mapActions} from 'vuex'
 Auth.getInfo()
   .then(data=>{
       console.log(data)
@@ -62,6 +63,11 @@ Auth.getInfo()
 
         },
         methods:{
+            ...mapActions({
+                loginUser:'login',
+                registerUser:'register'
+
+            }),
             showLogin(){
                 this.isShowRegister=false,
                 this.isShowLogin=true
@@ -81,26 +87,18 @@ Auth.getInfo()
                     this.register.notice='密码是6-16个字符'
                     return
                 }
-                this.register.isError=false
-                this.register.notice=''
-                console.log('register send')
-                console.log(`start register..., username: ${this.register.username} , password: ${this.register.password}`)
-                Bus.$emit('userInfo',this.register.username)
    
-                Auth.register({
-                    username:this.register.username,
-                    password:this.register.password,
-                }).then(data=>{
-                    console.log(data),
-                    this.register.isError=false,
-                    this.register.notice=''
-                    this.$router.push({path:'/notebookLists'})
+                 this.registerUser({
+                        username: this.register.username, 
+                        password: this.register.password
+                    }).then(() => {
+                        this.register.isError = false
+                        this.register.notice = ''
+                        this.$router.push({ path: 'notebookLists' })
+                    }).catch(data => {
+                        this.register.isError = true
+                        this.register.notice = data.msg
                     })
-                .catch(
-                    this.register.isError=true,
-                    this.register.notice=data.msg,
-                   
-                )
             },
             onLogin(){
                 if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)){
@@ -113,26 +111,17 @@ Auth.getInfo()
                     this.login.notice='密码是6-16个字符'
                     return
                 }
-                this.login.isError=false
-                this.login.notice=''
-                console.log('login send')
-                console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)
-                Bus.$emit('userInfo',this.login.username)
-                Auth.login({
+                this.loginUser({
                     username:this.login.username,
                     password:this.login.password
-                }).then(data=>{
-                    console.log(data)
-                    this.login.isError=false,
-                    this.login.notice=''
-                    this.$router.push({path:'/notebookLists'})
-                    })
-                .catch(
-                    this.login.isError=true,
-                    this.login.notice=data.msg,
-                   
-                )
-
+                }).then(()=>{
+                    this.login.isError="false"
+                    this.login.notice=""
+                    this.$router.push({path:'notebookLists'})
+                }).catch(data=>{
+                    this.login.isError="true"
+                    this.login.notice=data.msg
+                })
             },
         }
         

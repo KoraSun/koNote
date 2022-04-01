@@ -26,7 +26,6 @@
 <script>
 import Auth from '@/apis/auth'
 import Notebooks from '@/apis/notebooks'
-import {friendlyDate} from '@/helpers/until'
 import {mapState,mapActions,mapGetters} from 'vuex'
 
 
@@ -39,17 +38,18 @@ import {mapState,mapActions,mapGetters} from 'vuex'
 
         },
         created(){
-           Auth.getInfo()
+            this.checkLogin({path:'/login'})
+           /* Auth.getInfo()
             .then(res=>{
                 if(!res.isLogin){
                     this.$router.push('/login')
                 }
-            })
+            }) */
             /* Notebooks.getAll().then(res=>{
                 console.log(res.data)
                 this.notebooks=res.data
             }) */
-            this.$store.dispatch('getNotebooks')
+            this.getNotebooks()
         },
         computed:{
             ...mapGetters(['notebooks'])
@@ -59,7 +59,8 @@ import {mapState,mapActions,mapGetters} from 'vuex'
                 'getNotebooks',
                 'addNotebook',
                 'updateNotebook',
-                'deleteNotebook'
+                'deleteNotebook',
+                'checkLogin'
             ]),
             onCreate(){
                  this.$prompt('请输入文件名', '创建笔记本', {

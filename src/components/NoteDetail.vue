@@ -39,9 +39,7 @@
 <script>
 import Auth from '@/apis/auth'
 import NoteSidebar from "@/components/NoteSidebar"
-import Bus from '@/helpers/bus'
 import _ from 'lodash'
-import Notes from "@/apis/notes"
 import MarkDownIt from 'markdown-it'
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 let md = new MarkDownIt()
@@ -72,7 +70,8 @@ let md = new MarkDownIt()
             ]),
             ...mapActions([
                 'updateNote',
-                'deleNote'
+                'deleNote',
+                'checkLogin'
             ]),
             onUpdateNote:_.debounce(function(){
                 this.updateNote( {noteId:this.currentNote.id,title:this.currentNote.title,content:this.currentNote.content})
@@ -92,12 +91,13 @@ let md = new MarkDownIt()
             },
         },
         created(){
-           Auth.getInfo()
+            this.checkLogin({path:'/login'})
+          /*  Auth.getInfo()
             .then(res=>{
                 if(!res.isLogin){
                     this.$router.push('/login')
                 }
-            })
+            }) */
         },  
         beforeRouteUpdate(to,from,next){
             this.setCurrentNote({currentNoteId:to.query.noteId})
