@@ -1,33 +1,114 @@
 <template>
-    <div id="trash-detail">
-    <h1>
-         noteId:{{$route.query.noteId}}
-      </h1>
+    <div id="trash" class="detail">
+        <div class="note-sidebar">
+            <h3 class="notebook-title">回收站</h3>
+            <div class="menu">
+                <div class="update">更新时间</div>
+                <div class="title">标题</div>
+            </div>
+            <ul class="notes">
+                <li v-for="note in trashNotes" :key="note.id">
+                    <router-link :to="`/trash?noteId=${note.id}`">
+                    <span class="date">{{note.updatedAtFriendly}}</span>
+                    <span class="title">{{note.title}}</span>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+        <div class="note-detail">
+            <div class="note-bar" v-if="currentTrashNote">
+                <span>创建日期：{{currentTrashNote.createdAtFriendly}}</span>
+                <span>|</span>
+                <span>更新日期：{{currentTrashNote.updatedAtFriendly}}</span>
+                <span>|</span>
+                <span>所属笔记本：{{belongTo}}</span>
+                <a class="button action" @click="onRevert">恢复</a>
+                <a class="button action" @click="onDelete">彻底删除</a>
+            </div>
+            <div class="note-title">
+                <span>{{currentTrashNote.title}}</span>
+            </div>
+            <div class="editor">
+                <div class="preview" v-html="compileMarkDown"></div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-   import Auth from '@/apis/auth'
+   import MarkDownIt from 'markdown-it'
+   import {mapGetters,mapActions, mapMutations} from 'vuex'
+   let md = new MarkDownIt()
+
     export default {
         data(){
-            return {message:'回收站详情'}
+            return {}
 
         },
         created(){
-           Auth.getInfo()
-            .then(res=>{
-                if(!res.isLogin){
-                    this.$router.push('/login')
-                }
-            })
+           this.checkLogin({path:'/login'})
+           this.getNotebooks()
+           this.getTrashNotes().then(
+               ()=>{
+                  this.setCurrentTrashNote({currentTrashNoteId:this.$route.query.noteId}) 
+               }
+
+           )
+        },
+        methods:{
+            ...mapActions([
+                'checkLogin',
+                'deleteTrashNote',
+                'revertTrashNote',
+                'getTrashNotes',
+                'getNotebooks'
+            ]),
+            ...mapMutations([
+                'setCurrentTrashNote'
+            ]),
+            onRevert(){
+                this.revertTrashNote({noteId:this.currentTrashNote.id})
+            },
+            onDelete(){
+               this.deleteTrashNote({noteId:this.currentTrashNote.id})
+            },
+        },
+        beforeRouteUpdate(to,from,next){
+            this.setCurrentTrashNote({currentTrashNoteId:to.query.noteId}) 
+            next()
+        },
+        computed:{
+            ...mapGetters([
+                'trashNotes',
+                'currentTrashNote',
+                'belongTo',
+            ]),
+            compileMarkDown(){
+                  return md.render(this.currentTrashNote.content ||'')
+            },
         }
         
     }
 </script>
 
-<style  scoped>
-h1{
-    color: green;
+<style  lang="less">
+@import url(../assets/css/note-sidebar);
+@import url(../assets/css/note-detail);
+#trash{
+    display: flex;
+    align-content: stretch;
+    background-color: #fff;
+    flex: 1;
+    .note-bar {
+    .action {
+      border: 1px solid#ccc;
+      float: right;
+      margin-left: 10px;
+      padding: 2px 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+    
 }
-
 </style>

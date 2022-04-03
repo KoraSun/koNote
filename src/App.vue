@@ -22,7 +22,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #eee;
+  /*color: #eee;*/
   font-size: 14px;
 }
 
@@ -34,7 +34,9 @@ export default {
 
 html,body,#app{
   height: 100%;
+  min-width: 890px;
 }
+
 a{
   text-decoration: none;
   color: #444;

@@ -11,7 +11,7 @@ import {mapGetters,mapActions} from 'vuex'
             return{}
         },
         created(){
-            this.checkLogin({path:'/login'})
+            this.checkLogin()
            /*  Auth.getInfo().then(
                 res=>{
                 if(res.isLogin){
@@ -27,12 +27,14 @@ import {mapGetters,mapActions} from 'vuex'
                 'username',
                 'slug'
             ]),
-            ...mapActions([
-                'checkLogin'
-            ]),
             slug(){
                 return this.username.charAt(0)
             }
+        },
+        methods:{
+            ...mapActions([
+                'checkLogin'
+            ]),
         }
         
     }

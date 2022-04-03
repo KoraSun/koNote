@@ -23,8 +23,8 @@
                    v-model="currentNote.content" 
                     @input="onUpdateNote"
                     @keydown="statusText='输入中...'"
-                    
-                   placeholder="请输入内容"></textarea>
+                   placeholder="请输入内容">
+                   </textarea>
                 <div class="preview markdown-body"
                     v-show="isShowPreview" 
                     v-html="previewContent"
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
+import Note from '@/apis/notes'
 import NoteSidebar from "@/components/NoteSidebar"
 import _ from 'lodash'
 import MarkDownIt from 'markdown-it'
@@ -54,6 +54,9 @@ let md = new MarkDownIt()
             }
 
         },
+        created(){
+            this.checkLogin({path:'/login'})
+        },  
         computed:{
             previewContent(){
                 return md.render(this.currentNote.content ||'')
@@ -70,11 +73,11 @@ let md = new MarkDownIt()
             ]),
             ...mapActions([
                 'updateNote',
-                'deleNote',
+                'deleteNote',
                 'checkLogin'
             ]),
-            onUpdateNote:_.debounce(function(){
-                this.updateNote( {noteId:this.currentNote.id,title:this.currentNote.title,content:this.currentNote.content})
+             onUpdateNote:_.debounce(function(){
+                return Note.updateNote( {noteId:this.currentNote.id},{title:this.currentNote.title,content:this.currentNote.content})
                 .then(data=>{
                     this.statusText="已保存"
                 })
@@ -90,19 +93,12 @@ let md = new MarkDownIt()
                 })
             },
         },
-        created(){
-            this.checkLogin({path:'/login'})
-          /*  Auth.getInfo()
-            .then(res=>{
-                if(!res.isLogin){
-                    this.$router.push('/login')
-                }
-            }) */
-        },  
+       
         beforeRouteUpdate(to,from,next){
             this.setCurrentNote({currentNoteId:to.query.noteId})
             //this.currentNote=this.notes.find(note=>note.id.toString()===to.query.noteId) || {}
             next()
+
         },
        
     }
