@@ -2,7 +2,7 @@
     position: relative;
     width: 290px;
     border-right: 1px solid #ccc;
-    background-color: #eee;
+    background-color: white;
     overflow: auto;
     .add-note {
       position: absolute;
@@ -11,7 +11,7 @@
       color: #666;
       font-size: 12px;
       padding: 2px 4px;
-      box-shadow: 0px 0px 2px 0px #ccc;
+      box-shadow: 0px 0px 2px 0px #0761a4;
       border: none;
       z-index: 1;
       cursor: pointer;
@@ -26,7 +26,7 @@
       line-height: 45px;
       text-align: center;
       border-bottom: 1px solid #ccc;
-      background-color: #f7f7f7;
+      background-color: white;
       display: block;
     }
     .el-dropdown-link{
@@ -34,6 +34,7 @@
     }
     .el-dropdown-menu__item{
       width: 200px;
+     
     }
   
     .menu {
@@ -59,9 +60,11 @@
   
     .notes {
       li {
-        &:nth-child(odd) {
+        border-bottom:1px solid #e0e1e5;
+        height: 25px;
+       /*  &:nth-child(odd) {
           background-color: #f2f2f2;
-        }
+        } */
   
         a {
           display: flex;
@@ -72,7 +75,7 @@
         }
   
         .router-link-exact-active {
-          border: 2px solid #81c0f3;
+         background: #f5f5f8;
           border-radius: 3px;
         }
   

@@ -3,14 +3,14 @@
         <div class="note-sidebar">
             <h3 class="notebook-title">回收站</h3>
             <div class="menu">
-                <div class="update">更新时间</div>
                 <div class="title">标题</div>
+                <div class="update">更新时间</div>
             </div>
             <ul class="notes">
                 <li v-for="note in trashNotes" :key="note.id">
                     <router-link :to="`/trash?noteId=${note.id}`">
-                    <span class="date">{{note.updatedAtFriendly}}</span>
                     <span class="title">{{note.title}}</span>
+                    <span class="date">{{note.updatedAtFriendly}}</span>
                     </router-link>
                 </li>
             </ul>
@@ -130,7 +130,7 @@
     flex: 1;
     .note-bar {
     .action {
-      border: 1px solid#ccc;
+      border: 1px solid #0761a4;
       float: right;
       margin-left: 10px;
       padding: 2px 4px;

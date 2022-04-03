@@ -32,7 +32,6 @@
 
 <script>
 import Auth from '@/apis/auth'
-import Bus from '@/helpers/bus'
 import {mapGetters,mapActions} from 'vuex'
 Auth.getInfo()
   .then(data=>{
@@ -159,7 +158,7 @@ Auth.getInfo()
 }
 .main{
     flex:1;
-    background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
+    background: #96cdf2 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
     background-size: contain;
 }
 .from{
@@ -180,7 +179,7 @@ Auth.getInfo()
         }
     }
     .button-in{
-        background-color: #2bb964;
+        background-color: #96cdf2;
         height: 36px;
         line-height: 36px;
         text-align: center;
@@ -207,7 +206,7 @@ Auth.getInfo()
             line-height: 35px;
             padding:0 6px;
             border-radius: 4px;
-            border:1px solid #ccc;
+            border:1px solid #96cdf2;
             outline: none;
             font-size:14px;
             margin-top: 10px;

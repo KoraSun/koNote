@@ -17,14 +17,14 @@
             </el-dropdown-menu>
         </el-dropdown>
         <div class="menu">
-            <div class="update">更新时间</div>
             <div class="title">标题</div>
+            <div class="update">更新时间</div>
         </div>
         <ul class="notes">
             <li v-for="note in notes" :key="note.id">
                 <router-link :to="`/note?noteId=${note.id}&notebookId=${currentNotebook.id}`">
-                <span class="date">{{note.updatedAtFriendly}}</span>
                 <span class="title">{{note.title}}</span>
+                <span class="date">{{note.updatedAtFriendly}}</span>
                 </router-link>
             </li>
         </ul>

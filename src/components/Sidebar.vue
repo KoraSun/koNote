@@ -3,17 +3,25 @@
         <avatar></avatar>
         <div class="icons">
             <router-link to="/note" title="笔记">
-            <i class="iconfont icon-note"></i>
+                <svg class="icon" >
+                    <use xlink:href="#icon-notes"></use>
+                </svg>
             </router-link>
              <router-link to="/notebookLists" title="笔记本">
-              <i class="iconfont icon-notebook"></i>
+              <svg class="icon" >
+                    <use xlink:href="#icon-notebooks"></use>
+                </svg>
               </router-link>
               <router-link to="/trash" title="回收站">
-               <i class="iconfont icon-trash"></i>
+               <svg class="icon" >
+                    <use xlink:href="#icon-trash"></use>
+                </svg>
               </router-link>
         </div>
         <div class="logout" @click="onLogout">
-            <i class="iconfont icon-logout"></i>
+           <svg class="icon" >
+                <use xlink:href="#icon-logout"></use>
+            </svg>
         </div>
 
     </div>
@@ -21,7 +29,6 @@
 
 <script>
 import avatar from '@/components/Avatar'
-import Auth from '@/apis/auth'
 import {mapActions} from 'vuex'
     export default {
         components:{avatar},
@@ -36,33 +43,44 @@ import {mapActions} from 'vuex'
     }
 </script>
 
-<style  scoped>
+<style  scoped lang="less">
 #sidebar{
     position: relative;
-    width:56px;
+    width:78px;
     text-align: center;
-    background: #2c333c;
+   /*  background: #dbe6fa; */
+   background: white;
+   border-right: 1px solid #ccc;
 }
 .icons{
-   
     margin-top:15px;
 }
+
 .icons a{
-    padding: 6px 0;
+    padding: 15px 3px;
     display: block;
+    border: 0 2px solid transparent;
+}
+.icon{
+    height: 20px;
+    width: 20px;
 }
 .icons .router-link-active{
-    background: #5e6266;
+   background: #dbe6fa;
+   border-right: 2px solid #0661a6;
 }
 .logout{
     position: absolute;
-    bottom: 20px;
-    width: 100%;
+    bottom: 30px;
+    width: 78px;
+    height: 40px;
     text-align: center;
     cursor: pointer;
-}
-.iconfont{
-    color:#fff
+    padding:10px;
+    :hover{
+     height: 28px;
+     width: 28px;
+    }
 }
 
 </style>

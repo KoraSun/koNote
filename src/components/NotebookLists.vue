@@ -1,7 +1,7 @@
 <template>
     <div id="notebook-list" class="detail">
         <header>
-            <button href="#" class="button" @click="onCreate"> <i class="iconfont icon-plus"> 新建笔记</i></button>
+            <button href="#" class="button" @click="onCreate"> <i class="iconfont icon-plus"> 新建笔记本</i></button>
         </header>
         <main>
             <div class="layout">

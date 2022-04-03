@@ -11,22 +11,20 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: ()=>import ('@/components/Login')
     },
     {
-      path: '/notebookLists',
-     
-      component: NotebookLists
+      path:'/',
+      alias: '/notebookLists',
+      component:()=>import('@/components/NotebookLists')
     },
     {
       path: '/note',
-     
-      component: NoteDetail
+      component: ()=>import('@/components/NoteDetail')
     },
     {
       path: '/trash',
-     
-      component: TrashDetail
+      component: ()=>import('@/components/TrashDetail')
     },
     
   ]

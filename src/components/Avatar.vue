@@ -44,11 +44,11 @@ import {mapGetters,mapActions} from 'vuex'
 span{
     display: inline-block;
     width: 30px;
-    height: 30px;
+    height: 34px;
     text-align: center;
     line-height: 32px;
     border-radius: 50%;
-    background: #f2b81c;
+    background: #0661a6;
     color: #fff;
     text-shadow: 1px 0 1px #795c19;
     font-weight: bold;
