@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
-import Notebooks from '@/apis/notebooks'
 import {mapState,mapActions,mapGetters} from 'vuex'
 
 
@@ -52,7 +50,7 @@ import {mapState,mapActions,mapGetters} from 'vuex'
             this.getNotebooks()
         },
         computed:{
-            ...mapGetters(['notebooks'])
+            ...mapGetters(['notebooks',])
         },
         methods:{
             ...mapActions([
@@ -60,7 +58,7 @@ import {mapState,mapActions,mapGetters} from 'vuex'
                 'addNotebook',
                 'updateNotebook',
                 'deleteNotebook',
-                'checkLogin'
+                'checkLogin',
             ]),
             onCreate(){
                  this.$prompt('请输入文件名', '创建笔记本', {

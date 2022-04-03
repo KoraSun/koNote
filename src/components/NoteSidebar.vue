@@ -41,7 +41,13 @@ export default {
                 return this.getNotes({notebookId:this.currentNotebook.id})
             }).then(()=>{
                 this.setCurrentNote({currentNoteId:this.$route.query.noteId})
-
+                this.$router.replace({
+                    path:'/note',
+                    query:{
+                        noteId:this.currentNote.id,
+                        notebookId:this.currentNotebook.id
+                    }
+                })
             })
     },
     data(){
@@ -51,7 +57,8 @@ export default {
         ...mapGetters([
             'notebooks',
             'notes',
-            'currentNotebook'
+            'currentNotebook',
+            'currentNote'
         ])
     },
     methods:{
@@ -70,7 +77,17 @@ export default {
                return this.$router.push({path:'/trash'})   
             }
             this.$store.commit('setCurrentNotebook',{currentNotebookId:notebookId})
-            this.getNotes({ notebookId })
+            this.getNotes({ notebookId }).then(()=>{
+                this.setCurrentNote({})
+                // 此时还没有noteId，默认选择第一个
+                this.$router.replace({
+                    path:'/note',
+                    query:{
+                        noteId:this.currentNote.id,
+                        notebookId:this.currentNotebook.id
+                    }
+                })
+            })
         },
         onAddNote(){
             this.addNote({notebookId:this.currentNotebook.id})

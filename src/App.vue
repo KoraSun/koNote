@@ -18,13 +18,6 @@ export default {
 
 <style>
 @import '//at.alicdn.com/t/font_496303_kqrjhri8l25d0a4i.css';
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /*color: #eee;*/
-  font-size: 14px;
-}
 
 *{
   box-sizing: border-box;
@@ -35,6 +28,14 @@ export default {
 html,body,#app{
   height: 100%;
   min-width: 890px;
+}
+
+body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+  background-color: #eee;
 }
 
 a{

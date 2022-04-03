@@ -33,6 +33,14 @@ const actions={
             commit('setUser',{user:res.data})
         })
     },
+    logout({commit}){
+        return Auth.logout()
+         .then(res=>{
+            commit('setUser',{user:null})
+            console.log(res)
+            router.push({path:'/login'})
+         })
+    },
     checkLogin({commit,state},payload){
         if (state.user !== null) return Promise.resolve()
         return Auth.getInfo()

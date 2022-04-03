@@ -51,9 +51,13 @@
            this.getTrashNotes().then(
                ()=>{
                   this.setCurrentTrashNote({currentTrashNoteId:this.$route.query.noteId}) 
-               }
-
-           )
+                  this.$router.replace({
+                      path:'/trash',
+                      query:{
+                          noteId:this.currentTrashNote.id
+                      }
+                  })
+               })
         },
         methods:{
             ...mapActions([
@@ -68,9 +72,34 @@
             ]),
             onRevert(){
                 this.revertTrashNote({noteId:this.currentTrashNote.id})
+                .then(()=>{
+                     this.setCurrentTrashNote({})
+                     this.$router.replace({
+                         path:'/trash',
+                         query:{
+                             noteId:this.currentTrashNote.id
+                         }
+                     })
+                })
+      
             },
             onDelete(){
-               this.deleteTrashNote({noteId:this.currentTrashNote.id})
+                 this.$confirm('删除后将无法恢复', ' 确定删除吗？', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(()=>{
+                       return this.deleteTrashNote({noteId:this.currentTrashNote.id})
+                    }).then(()=>{
+                        this.setCurrentTrashNote({})
+                        this.$router.replace({
+                        path:'/trash',
+                        query:{
+                             noteId:this.currentTrashNote.id
+                        }
+                     })
+
+                    })
             },
         },
         beforeRouteUpdate(to,from,next){
