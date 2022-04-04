@@ -23,7 +23,6 @@
                 <use xlink:href="#icon-logout"></use>
             </svg>
         </div>
-
     </div>
 </template>
 

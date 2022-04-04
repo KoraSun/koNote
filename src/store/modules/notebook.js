@@ -2,13 +2,13 @@ import Notebooks from '@/apis/notebooks'
 import {Message} from 'element-ui'
 
 const state={
-    notebooks:[],
+    notebooks:null,
     currentNotebookId:null,
 
 }
 
 const getters={
-    notebooks:state=>state.notebooks || [],
+    notebooks:state=>state.notebooks|| [],
 
     currentNotebook:state=>{
         if(!Array.isArray(state.notebooks))return {}
@@ -50,7 +50,7 @@ const actions={
     addNotebook({commit},payload){
         return Notebooks.addNotebook({title:payload.title}).then(
             res=>{
-                console.log("1")
+                console.log(res)
                 commit('addNotebook',{notebook:res.data})  
             }
         )
