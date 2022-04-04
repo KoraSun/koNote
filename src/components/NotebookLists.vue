@@ -1,7 +1,12 @@
 <template>
     <div id="notebook-list" class="detail">
         <header>
-            <button href="#" class="button" @click="onCreate"> <i class="iconfont icon-plus"> 新建笔记本</i></button>
+            <button href="#" class="button" @click="onCreate">
+                <svg class="icon" >
+                    <use xlink:href="#icon-plus"></use>
+                </svg>
+                添加笔记
+            </button>
         </header>
         <main>
             <div class="layout">

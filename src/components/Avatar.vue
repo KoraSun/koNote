@@ -43,14 +43,14 @@ import {mapGetters,mapActions} from 'vuex'
 <style  scoped>
 span{
     display: inline-block;
-    width: 30px;
+    width: 34px;
     height: 34px;
     text-align: center;
     line-height: 32px;
     border-radius: 50%;
     background: #0661a6;
     color: #fff;
-    text-shadow: 1px 0 1px #795c19;
+    text-shadow: 1px 0 1px #0661a6;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 18px;
