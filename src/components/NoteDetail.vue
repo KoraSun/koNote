@@ -4,7 +4,6 @@
     <div class="note-detail">  
         <div class="note-empty" v-show="!currentNotebook.id" >请创建笔记本后</div>
         <div class="note-empty" v-show="!currentNote.id" >选择或创建笔记</div>
-        
         <div class="note-detail-ct" v-show="currentNote.id">
             <div class="note-bar">
                 <span>创建日期：{{currentNote.createdAtFriendly}}</span>

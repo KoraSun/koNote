@@ -1,5 +1,5 @@
 <template>
-    <div id="trash" class="detail">
+    <div  id="trash" class="detail">
         <div class="note-sidebar">
             <h3 class="notebook-title">回收站</h3>
             <div class="menu">
@@ -16,7 +16,8 @@
             </ul>
         </div>
         <div class="note-detail">
-            <div class="note-bar" v-if="currentTrashNote">
+            <div class="note-empty" v-show="!currentTrashNote.id" >目前回收站无笔记</div>
+            <div v-show="currentTrashNote.id" class="note-bar" v-if="currentTrashNote">
                 <span>创建日期：{{currentTrashNote.createdAtFriendly}}</span>
                 <span>|</span>
                 <span>更新日期：{{currentTrashNote.updatedAtFriendly}}</span>

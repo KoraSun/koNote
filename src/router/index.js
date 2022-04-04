@@ -16,15 +16,15 @@ export default new Router({
     {
       path:'/',
       alias: '/notebookLists',
-      component:()=>import('@/components/NotebookLists')
+      component:NotebookLists
     },
     {
       path: '/note',
-      component: ()=>import('@/components/NoteDetail')
+      component:NoteDetail
     },
     {
       path: '/trash',
-      component: ()=>import('@/components/TrashDetail')
+      component:TrashDetail
     },
     
   ]

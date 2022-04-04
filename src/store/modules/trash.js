@@ -10,7 +10,7 @@ const state={
 const getters= {
     trashNotes: state => state.trashNotes || [],
     currentTrashNote:(state,getters)=>{
-        if(!state.currentTrashNoteId)return getters.trashNotes[0]
+        if(!state.currentTrashNoteId) return getters.trashNotes[0] || {}
         return state.trashNotes.find(note=>note.id == state.currentTrashNoteId)||{}
     },
     belongTo:(state,getters,rootState,rootGetters)=>{

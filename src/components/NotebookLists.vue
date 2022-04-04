@@ -5,7 +5,7 @@
                 <svg class="icon" >
                     <use xlink:href="#icon-plus"></use>
                 </svg>
-                添加笔记
+                添加笔记本
             </button>
         </header>
         <main>
@@ -14,7 +14,9 @@
                 <div class="lists">
                     <router-link v-for="notebook in notebooks" :to="`note?notebookId=${notebook.id}`" class="notebook" :key='notebook.id'>
                         <div>
-                            <span class='iconfont icon-notebook'></span>
+                            <svg class="icon" >
+                                <use xlink:href="#icon-book"></use>
+                            </svg>
                             {{notebook.title}}
                             <span>{{notebook.noteCounts}}</span>
                             <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
@@ -55,7 +57,7 @@ import {mapState,mapActions,mapGetters} from 'vuex'
             this.getNotebooks()
         },
         computed:{
-            ...mapGetters(['notebooks',])
+            ...mapGetters(['notebooks'])
         },
         methods:{
             ...mapActions([
@@ -74,6 +76,7 @@ import {mapState,mapActions,mapGetters} from 'vuex'
                     }).then(({ value }) => {
                       // return Notebooks.addNotebook({title:value})
                       this.addNotebook({title:value})
+    
                     })
             },
             onEdit(notebook){
@@ -89,7 +92,7 @@ import {mapState,mapActions,mapGetters} from 'vuex'
                     })
             },
             onDelete(notebook){
-                 this.$confirm('确定要删除这一条笔记吗?', '删除笔记', {
+                 this.$confirm('确定要删除这一个笔记本吗?', '删除笔记', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
